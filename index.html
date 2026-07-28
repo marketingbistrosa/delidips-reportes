@@ -142,8 +142,12 @@
     font-family:'JetBrains Mono',monospace; font-size:11.5px; padding:6px 12px; border-radius:20px;
     border:1px solid var(--line); background:var(--cream-2); color:var(--ink-dim); cursor:pointer; transition:.15s;
   }
+  .tbtn.kansas-t{border-color:var(--kansas); color:var(--kansas);}
+  .tbtn.kyros-t{border-color:var(--kyros); color:var(--kyros);}
+  .tbtn.bakery-t{border-color:var(--cilantro); color:var(--cilantro);}
   .tbtn.active.kansas-t{background:var(--kansas-tint); border-color:var(--kansas); color:var(--kansas);}
   .tbtn.active.kyros-t{background:var(--kyros-tint); border-color:var(--kyros); color:var(--kyros);}
+  .tbtn.active.bakery-t{background:var(--cilantro-tint); border-color:var(--cilantro); color:var(--cilantro);}
 
   .panel{background:var(--cream-2); border:1px solid var(--line); border-radius:18px; padding:22px; box-shadow:0 1px 2px rgba(36,31,27,0.04); position:relative;}
   .expand-btn{
@@ -241,13 +245,13 @@
   <main class="content">
   <div class="topbar">
     <div>
-      <div class="topbar-greet">Hola, Angie 👋</div>
+      <div class="topbar-greet">Hola 👋</div>
       <div class="topbar-sub">Gestioná Kansas &amp; Kyros con datos en tiempo real</div>
     </div>
     <div class="topbar-icons" style="position:relative;">
       <div class="icon-btn" title="Ir a Analizar" onclick="goToAnalizar()">🔍</div>
       <div class="icon-btn" title="Avisos de calidad de datos" onclick="toggleNotifs(event)">🔔<span class="ping"></span></div>
-      <div class="avatar-chip" title="Angie · Brand Manager">A</div>
+      <div class="avatar-chip" title="DeliDips">D</div>
       <div class="notif-panel" id="notifPanel">
         <div class="notif-title">Avisos</div>
         <div class="notif-item">⚠ Scentia agrupa Kansas y Kyros bajo "otros fabricantes" desde el corte jun-26 — avisar a la agencia.</div>
@@ -402,9 +406,9 @@
         <div>
           <div class="kpi-note" style="margin-bottom:8px;">Marca</div>
           <div class="toggles" id="siFilterBrand">
-            <button class="tbtn active" data-brand="KYROS" style="border-color:var(--kyros); color:var(--kyros); background:var(--kyros-tint);">Kyros</button>
-            <button class="tbtn active" data-brand="KANSAS_SALSAS" style="border-color:var(--kansas); color:var(--kansas); background:var(--kansas-tint);">Kansas Salsas</button>
-            <button class="tbtn active" data-brand="KANSAS_BAKERY" style="border-color:var(--cilantro); color:var(--cilantro);">Kansas Bakery</button>
+            <button class="tbtn active kyros-t" data-brand="KYROS">Kyros</button>
+            <button class="tbtn active kansas-t" data-brand="KANSAS_SALSAS">Kansas Salsas</button>
+            <button class="tbtn active bakery-t" data-brand="KANSAS_BAKERY">Kansas Bakery</button>
           </div>
         </div>
         <div>
@@ -482,9 +486,9 @@
         <div>
           <div class="kpi-note" style="margin-bottom:8px;">Marca</div>
           <div class="toggles" id="filterBrand">
-            <button class="tbtn active" data-brand="KANSAS" style="border-color:var(--kansas); color:var(--kansas); background:var(--kansas-tint);">Kansas Salsas</button>
-            <button class="tbtn active" data-brand="KYROS" style="border-color:var(--kyros); color:var(--kyros); background:var(--kyros-tint);">Kyros</button>
-            <button class="tbtn" data-brand="BAKERY" style="border-color:var(--cilantro); color:var(--cilantro);">Kansas Bakery</button>
+            <button class="tbtn active kansas-t" data-brand="KANSAS">Kansas Salsas</button>
+            <button class="tbtn active kyros-t" data-brand="KYROS">Kyros</button>
+            <button class="tbtn bakery-t" data-brand="BAKERY">Kansas Bakery</button>
           </div>
         </div>
         <div>
