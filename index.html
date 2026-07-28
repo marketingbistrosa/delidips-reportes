@@ -549,6 +549,7 @@
           <select id="filterMetric" class="range-select">
             <option value="vol">Volumen (Kg)</option>
             <option value="rev">Facturación ($)</option>
+            <option value="precio">Precio Promedio ($/Kg)</option>
             <option value="som">SOM (%)</option>
           </select>
         </div>
@@ -1156,6 +1157,13 @@ document.getElementById('productRange').addEventListener('change', renderProduct
 
 // ==================== ANALIZAR: buscador + filtros ====================
 function getSeries(brand, source, metric){
+  if(metric === 'precio'){
+    const volS = getSeries(brand, source, 'vol');
+    const revS = getSeries(brand, source, 'rev');
+    if(!volS || !revS) return null;
+    const values = volS.values.map((v,i)=> v > 0 ? revS.values[i]/v : 0);
+    return {months: volS.months, values};
+  }
   if(source === 'sellout'){
     if(brand === 'BAKERY') return null;
     if(metric === 'som'){
@@ -1177,7 +1185,7 @@ function getSeries(brand, source, metric){
 }
 
 function brandLabel(b){ return b==='KANSAS' ? 'Kansas Salsas' : b==='KYROS' ? 'Kyros' : 'Kansas Bakery'; }
-function metricLabel(m){ return m==='vol' ? 'Volumen (Kg)' : m==='rev' ? 'Facturación ($)' : 'SOM (%)'; }
+function metricLabel(m){ return m==='vol' ? 'Volumen (Kg)' : m==='rev' ? 'Facturación ($)' : m==='precio' ? 'Precio Promedio ($/Kg)' : 'SOM (%)'; }
 function sourceLabel(s){ return s==='sellout' ? 'Sell-out (Scentia)' : 'Sell-in (Interno)'; }
 function brandColor(b){ return b==='KANSAS' ? KANSAS_COLOR : b==='KYROS' ? KYROS_COLOR : BAKERY_COLOR; }
 
@@ -1302,6 +1310,7 @@ function parseSource(norm){
   return null;
 }
 function parseMetric(norm){
+  if(norm.includes('precio')) return 'precio';
   if(norm.includes('som') || norm.includes('participacion') || norm.includes('share')) return 'som';
   if(norm.includes('factur') || norm.includes('plata') || norm.includes('revenue') || norm.includes('pesos') || norm.includes('$')) return 'rev';
   if(norm.includes('volumen') || norm.includes(' kg') || norm.includes('kilos') || norm.includes('vendio') || norm.includes('vendió')) return 'vol';
@@ -1310,6 +1319,7 @@ function parseMetric(norm){
 
 function fmtQ(v, metric){
   if(metric === 'som') return v.toFixed(1) + '%';
+  if(metric === 'precio') return '$' + fmt(Math.round(v)) + '/kg';
   return fmt(Math.round(v)) + (metric === 'vol' ? ' kg' : '');
 }
 
