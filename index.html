@@ -6,29 +6,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
   :root{
-    --page-bg: #ECE8E0;
+    --page-bg: #E7E7F1;
     --cream: #FFFFFF;
     --cream-2: #FFFFFF;
-    --panel-soft: #F7F4EE;
-    --ink: #241F1B;
-    --ink-dim: #948C7D;
-    --line: #ECE7DC;
+    --panel-soft: #F4F4FA;
+    --ink: #1F2130;
+    --ink-dim: #9494A8;
+    --line: #ECECF5;
     --sidebar-bg: #FFFFFF;
-    --sidebar-ink: #241F1B;
-    --sidebar-dim: #A79E8E;
+    --sidebar-ink: #1F2130;
+    --sidebar-dim: #ADADC2;
 
-    --kansas: #B5342A;          /* rojo Kansas */
+    --kansas: #B5342A;          /* rojo Kansas — se usa en gráficos comparativos */
     --kansas-tint: #F1CFC4;
     --kansas-tint-2: #E8B6A8;
-    --kyros: #D9662E;           /* paprika Kyros */
+    --kyros: #D9662E;           /* paprika Kyros — se usa en gráficos comparativos */
     --kyros-tint: #F7DDBE;
     --kyros-tint-2: #F0C293;
     --cilantro: #6E8B4A;
     --cilantro-tint: #DFE6C9;
+
+    /* paleta "viva" para tarjetas KPI y acentos de UI */
+    --blue: #37B7E8; --blue-bg: #CDEFFB;
+    --purple: #7C6FE0; --purple-bg: #E1DCFB;
+    --mint: #3FC79A; --mint-bg: #CDF3E4;
+    --pink: #D66FC4; --pink-bg: #F7DCF2;
 
     --good: #4C7A4B;
     --bad: #A93A2E;
@@ -41,16 +47,16 @@
     font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased;
   }
   .shell{
-    max-width:1440px; margin:22px auto; min-height:calc(100vh - 44px);
-    background:var(--cream); border-radius:28px; box-shadow:0 24px 60px rgba(36,31,27,0.10);
-    overflow:hidden; display:flex;
+    min-height:100vh; width:100%;
+    background:transparent; display:flex;
   }
   .app{display:flex; width:100%;}
   .sidebar{
     width:216px; flex-shrink:0; background:var(--sidebar-bg); color:var(--sidebar-ink);
     padding:26px 16px; display:flex; flex-direction:column; gap:22px; border-right:1px solid var(--line);
+    position:sticky; top:0; height:100vh;
   }
-  .brand{font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:.03em; padding:2px 8px 0;}
+  .brand{font-family:'Quicksand',sans-serif; font-weight:700; font-size:22px; padding:2px 8px 0;}
   .brand span{color:var(--kyros);}
   .nav-section-label{font-size:10px; text-transform:uppercase; letter-spacing:.09em; color:var(--sidebar-dim); font-weight:700; padding:0 10px; margin-bottom:2px;}
   .sidebar nav{display:flex; flex-direction:column; gap:3px;}
@@ -60,13 +66,13 @@
     cursor:pointer; text-align:left; transition:.15s; width:100%; opacity:.62;
   }
   .nav-item:hover{background:var(--panel-soft); opacity:.85;}
-  .nav-item.active{background:var(--kansas); color:#FFF; opacity:1; box-shadow:0 4px 10px rgba(181,52,42,0.25);}
+  .nav-item.active{background:var(--purple); color:#FFF; opacity:1; box-shadow:0 4px 10px rgba(124,111,224,0.28);}
   .nav-item.active .dot{background:#FFF !important;}
   .nav-item .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0;}
   .sidebar-foot{margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--sidebar-dim); padding:0 10px; line-height:1.6;}
 
-  .content{flex:1; min-width:0; padding:28px 36px 70px; overflow-y:auto; max-height:calc(100vh - 44px);}
-  .wrap{max-width:1180px; margin:0 auto;}
+  .content{flex:1; min-width:0; padding:32px 40px 70px; background:var(--page-bg); min-height:100vh;}
+  .wrap{max-width:1240px; margin:0 auto;}
 
   .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;}
   .topbar-greet{font-size:20px; font-weight:800;}
@@ -77,7 +83,7 @@
     display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--ink-dim); cursor:pointer;
     position:relative; transition:.15s;
   }
-  .icon-btn:hover{background:var(--kansas-tint); border-color:var(--kansas-tint-2);}
+  .icon-btn:hover{background:var(--purple-bg); border-color:var(--purple);}
   .icon-btn .ping{position:absolute; top:2px; right:2px; width:8px; height:8px; border-radius:50%; background:var(--kansas); border:1.5px solid #fff;}
   .notif-panel{
     position:absolute; top:52px; right:36px; width:300px; background:#fff; border:1px solid var(--line); border-radius:14px;
@@ -88,13 +94,13 @@
   .notif-item{font-size:12.5px; line-height:1.5; padding:8px 0; border-bottom:1px solid var(--line);}
   .notif-item:last-child{border-bottom:none;}
   .avatar-chip{
-    width:36px; height:36px; border-radius:50%; background:var(--kansas); color:#fff; display:flex; align-items:center;
-    justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:15px;
+    width:36px; height:36px; border-radius:50%; background:var(--purple); color:#fff; display:flex; align-items:center;
+    justify-content:center; font-family:'Quicksand',sans-serif; font-size:15px;
   }
 
   header{display:flex; flex-direction:column; gap:6px; margin-bottom:24px;}
   .eyebrow{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim);}
-  h1{font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:.02em; margin:2px 0 4px; line-height:1; color:var(--ink);}
+  h1{font-family:'Quicksand',sans-serif; font-weight:700; font-size:30px; margin:2px 0 4px; line-height:1.2; color:var(--ink);}
   h1 span.k{color:var(--kansas);}
   h1 span.y{color:var(--kyros);}
   .sub{color:var(--ink-dim); font-size:14px; max-width:760px; line-height:1.55;}
@@ -105,38 +111,42 @@
   .badge.new{border-color:var(--kansas); color:var(--kansas);}
 
   .alert{
-    background: var(--panel-soft);
-    border:1px solid var(--line); border-left:4px solid var(--warn);
+    background: var(--cream-2);
+    border:1px solid rgba(60,50,110,0.05); border-left:4px solid var(--warn);
     border-radius:14px; padding:16px 18px; margin:22px 0; font-size:13.5px; line-height:1.6; color:var(--ink);
+    box-shadow:0 8px 24px rgba(60,50,110,0.08);
   }
   .alert b{color:var(--warn);}
 
   .kpi-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0;}
   @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
-  .kpi{border-radius:20px; padding:18px 18px 16px; position:relative; overflow:hidden; background:var(--cream-2); border:1px solid var(--line);}
-  .kpi-icon{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:10px; font-size:13px; font-weight:800; font-family:'Bebas Neue',sans-serif;}
-  .kpi.kansas .kpi-icon{background:var(--kansas-tint); color:var(--kansas);}
-  .kpi.kyros .kpi-icon{background:var(--kyros-tint); color:var(--kyros);}
-  .kpi.bakery .kpi-icon{background:var(--cilantro-tint); color:var(--cilantro);}
-  .kpi.hero{background:var(--kansas); border-color:var(--kansas);}
-  .kpi.hero .kpi-label, .kpi.hero .kpi-value, .kpi.hero .kpi-note{color:#FCF3EC;}
-  .kpi.hero .kpi-label{opacity:.8;} .kpi.hero .kpi-note{opacity:.78;}
-  .kpi.hero .kpi-icon{background:rgba(255,255,255,0.2); color:#fff;}
-  .kpi-label{font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-dim); font-weight:700;}
-  .kpi-value{font-family:'Bebas Neue',sans-serif; font-size:30px; margin:4px 0 6px; letter-spacing:.02em; color:var(--ink);}
-  .kpi-delta{
-    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; display:inline-flex; align-items:center; gap:4px;
-    padding:3px 9px; border-radius:20px;
+  .kpi{border-radius:20px; padding:20px 20px 18px; position:relative; overflow:hidden; border:none; box-shadow:0 8px 24px rgba(60,50,110,0.09);}
+  .kpi:nth-child(4n+1){background:var(--blue-bg);}
+  .kpi:nth-child(4n+2){background:var(--purple-bg);}
+  .kpi:nth-child(4n+3){background:var(--mint-bg);}
+  .kpi:nth-child(4n){background:var(--pink-bg);}
+  .kpi-icon{
+    width:36px; height:36px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center;
+    margin-bottom:12px; font-size:14px; font-weight:800; font-family:'Quicksand',sans-serif; box-shadow:0 2px 8px rgba(31,33,48,0.08);
   }
-  .kpi-delta.pos{color:var(--good); background:rgba(76,122,75,0.11);}
-  .kpi-delta.neg{color:var(--bad); background:rgba(169,58,46,0.11);}
-  .kpi.hero .kpi-delta.pos{color:#FFFFFF; background:rgba(255,255,255,0.24);}
-  .kpi.hero .kpi-delta.neg{color:#FFFFFF; background:rgba(0,0,0,0.22);}
-  .kpi-note{font-size:11px; color:var(--ink-dim); margin-top:8px; line-height:1.4;}
+  .kpi:nth-child(4n+1) .kpi-icon{color:var(--blue);}
+  .kpi:nth-child(4n+2) .kpi-icon{color:var(--purple);}
+  .kpi:nth-child(4n+3) .kpi-icon{color:var(--mint);}
+  .kpi:nth-child(4n) .kpi-icon{color:var(--pink);}
+  .kpi-label{font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink); opacity:.55; font-weight:800;}
+  .kpi-value{font-family:'Quicksand',sans-serif; font-weight:700; font-size:28px; margin:4px 0 6px; color:var(--ink);}
+  .kpi-delta{
+    font-family:'Inter',sans-serif; font-size:11.5px; font-weight:700; display:inline-flex; align-items:center; gap:3px;
+    padding:2px 0;
+  }
+  .kpi-delta.pos{color:var(--good);}
+  .kpi-delta.neg{color:var(--bad);}
+  .kpi-note{font-size:11px; color:var(--ink); opacity:.55; margin-top:8px; line-height:1.4;}
+  .kpi-brand-dot{display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:5px; vertical-align:middle;}
 
   section{margin:36px 0;}
   .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;}
-  h2{font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:.02em; margin:0; color:var(--ink);}
+  h2{font-family:'Quicksand',sans-serif; font-weight:700; font-size:19px; margin:0; color:var(--ink);}
   .toggles{display:flex; gap:8px;}
   .tbtn{
     font-family:'JetBrains Mono',monospace; font-size:11.5px; padding:6px 12px; border-radius:20px;
@@ -149,7 +159,7 @@
   .tbtn.active.kyros-t{background:var(--kyros-tint); border-color:var(--kyros); color:var(--kyros);}
   .tbtn.active.bakery-t{background:var(--cilantro-tint); border-color:var(--cilantro); color:var(--cilantro);}
 
-  .panel{background:var(--cream-2); border:1px solid var(--line); border-radius:18px; padding:22px; box-shadow:0 1px 2px rgba(36,31,27,0.04); position:relative;}
+  .panel{background:var(--cream-2); border:1px solid rgba(60,50,110,0.05); border-radius:18px; padding:22px; box-shadow:0 8px 24px rgba(60,50,110,0.08); position:relative;}
   .expand-btn{
     position:absolute; top:14px; right:14px; width:30px; height:30px; border-radius:50%; border:1px solid var(--line);
     background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:12px;
@@ -160,7 +170,7 @@
   .chart-modal{position:fixed; inset:0; background:rgba(36,31,27,0.55); display:none; align-items:center; justify-content:center; z-index:1000; padding:24px;}
   .chart-modal.open{display:flex;}
   .chart-modal-inner{background:#fff; border-radius:22px; padding:26px 28px; width:min(920px,94vw); box-shadow:0 30px 90px rgba(0,0,0,0.32); position:relative;}
-  .chart-modal-title{font-family:'Bebas Neue',sans-serif; font-size:24px; margin-bottom:16px; padding-right:36px;}
+  .chart-modal-title{font-family:'Quicksand',sans-serif; font-weight:700; font-size:19px; margin-bottom:16px; padding-right:36px;}
   .chart-modal-close{
     position:absolute; top:22px; right:24px; width:32px; height:32px; border-radius:50%; border:1px solid var(--line);
     background:var(--panel-soft); cursor:pointer; font-size:14px; color:var(--ink-dim); display:flex; align-items:center; justify-content:center;
@@ -190,17 +200,17 @@
   .term{border-bottom:1px dotted var(--ink-dim); cursor:help; position:relative;}
   .term:hover::after{
     content:attr(data-tip); position:absolute; left:50%; bottom:calc(100% + 8px); transform:translateX(-50%);
-    background:#241F1B; color:#F2ECE0; border:1px solid #3A342D; border-radius:10px;
+    background:#1F2130; color:#EDEDF5; border:1px solid #34364A; border-radius:10px;
     padding:9px 11px; font-size:11.5px; font-family:'Inter',sans-serif; font-weight:400;
     text-transform:none; letter-spacing:normal; white-space:normal; width:230px; line-height:1.45;
     z-index:30; box-shadow:0 6px 18px rgba(0,0,0,.25);
   }
   .term:hover::before{
     content:''; position:absolute; left:50%; bottom:100%; transform:translateX(-50%);
-    border:5px solid transparent; border-top-color:#3A342D; z-index:30;
+    border:5px solid transparent; border-top-color:#34364A; z-index:30;
   }
 
-  .exec-summary{background:var(--cream-2); border:1px solid var(--line); border-left:4px solid var(--kansas); border-radius:16px; padding:20px 22px; margin:22px 0;}
+  .exec-summary{background:var(--cream-2); border:1px solid rgba(60,50,110,0.05); border-left:4px solid var(--kansas); border-radius:16px; padding:20px 22px; margin:22px 0; box-shadow:0 8px 24px rgba(60,50,110,0.08);}
   .exec-title{font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-dim); margin-bottom:14px; font-weight:700;}
   .exec-list{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:11px;}
   .exec-list li{font-size:14.5px; line-height:1.55; padding-left:24px; position:relative; color:var(--ink);}
@@ -266,7 +276,7 @@
 
   <header>
     <div class="eyebrow">Scentia · Autoservicio · Ketchup &amp; Otros Aderezos</div>
-    <h1><span class="k">KANSAS</span> &amp; <span class="y">KYROS</span> — Lectura de mercado</h1>
+    <h1>Kansas &amp; Kyros — Lectura de mercado</h1>
     <div class="sub">Comparativo dic-25 vs jun-26 · Volumen, <span class="term" data-tip="Share of Market: qué porcentaje del volumen total vendido en la categoría corresponde a esa marca.">SOM</span> y valorización por categoría.</div>
     <div class="badgebar">
       <div class="badge old">◆ Informe anterior · dic-25</div>
@@ -381,6 +391,24 @@
     </div>
   </section>
 
+  <section>
+    <div class="section-head">
+      <h2>Competencia — quién más vende en la categoría</h2>
+      <select id="compCategory" class="range-select">
+        <option value="KETCHUP">Ketchup</option>
+        <option value="OTROS ADEREZOS" selected>Otros Aderezos</option>
+      </select>
+    </div>
+    <div class="kpi-note" style="margin-bottom:12px;">Top 8 marcas por volumen acumulado (ene-24 → jun-26) en la categoría elegida, más "Otros competidores" (resto de marcas chicas, agrupadas). Kansas y Kyros aparecen marcados como "(propia)" para ubicarlos fácil entre la competencia.</div>
+    <div class="panel">
+      <div class="expand-btn" onclick="openChartModal('compChart','Competencia por categoría')">⤢</div>
+      <div class="chart-box" style="height:360px;"><canvas id="compChart"></canvas></div>
+    </div>
+    <div class="panel" style="margin-top:14px; max-height:360px; overflow:auto;">
+      <table id="compTable"></table>
+    </div>
+  </section>
+
   <div class="foot">
     Fuentes: Kansas_Self_Cadenas-Self_independientes_Dic_25.xlsx · Kansas_Self_Cadenas-Self_independientes_Jun-26.xlsx (Scentia, solapa TABLA, agregado por EAN). Reconstrucción de marca Kansas/Kyros vía prefijo EAN 7798334xxxxxx + clasificación por descripción de producto.
   </div>
@@ -390,7 +418,7 @@
   <div id="tab-sellin" class="tab-content">
     <header>
       <div class="eyebrow">Interno DeliDips · Base de Datos de Facturación · Todos los canales</div>
-      <h1>Sell-in — <span class="k">Kansas</span> &amp; <span class="k" style="color:var(--cilantro);">Kyros</span> &amp; Bakery</h1>
+      <h1>Sell-in — Kansas &amp; Kyros &amp; Bakery</h1>
       <div class="sub">Lo que DeliDips factura/despacha a todos sus clientes — todos los canales, no solo autoservicio. <b style="color:var(--kansas);">No es comparable 1 a 1</b> con el sell-out de Scentia (ver por qué más abajo).</div>
       <div class="badgebar">
         <div class="badge old">◆ Fuente: KPI_SIN_CONTRA_JUNIO_26.xlsx</div>
@@ -601,6 +629,7 @@ const SELLIN = {"months": ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05"
 const SELLIN_CANAL = {"months": ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"], "canales": ["CADENA REGIONAL", "CLIENTES DIRECTOS", "DISTRIBUIDORES", "EXPORTACIONES", "KANSAS- B54", "SUPERMERCADOS"], "data": {"KANSAS_BAKERY": {"CADENA REGIONAL": {"kg": [163.1, 263.9, 135.2, 343.4, 186.6, 102.6, 188.0, 115.5, 146.5, 183.9, 108.1, 160.7, 72.8, 0, 66.6, 0, 0, 0], "neto": [587610, 999703, 491607, 1310432, 711745, 385895, 722466, 442194, 552570, 763594, 481848, 709118, 336978, 0, 284000, 0, 0, 0]}, "CLIENTES DIRECTOS": {"kg": [1235.1, 1300.7, 1026.4, 1352.1, 3666.0, 3763.3, 6596.9, 4037.7, 4853.7, 5898.5, 2436.1, 2944.4, 3818.5, 4432.8, 6189.6, 5798.0, 7881.4, 8328.7], "neto": [4209245, 4267574, 3521061, 3898288, 12976971, 13913193, 24475823, 14855834, 17593295, 20804639, 9769501, 12629102, 17131679, 20970029, 29247993, 24625080, 33840419, 37005468]}, "DISTRIBUIDORES": {"kg": [3707.2, 2943.8, 3780.8, 3838.0, 3393.5, 3540.4, 3735.9, 3552.4, 4130.8, 3825.2, 3839.5, 3638.1, 3386.5, 4012.1, 2638.0, 2503.2, 1511.0, 2043.8], "neto": [11544312, 9102569, 11732012, 11888922, 11663126, 11927056, 12976879, 12383591, 15517211, 15863797, 17742289, 17620488, 15204873, 15153964, 15406510, 15050512, 13162066, 15867334]}, "EXPORTACIONES": {"kg": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], "neto": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}, "KANSAS- B54": {"kg": [12130.6, 10170.7, 12726.3, 11571.0, 11552.9, 10705.8, 13538.6, 11650.4, 11897.4, 12952.7, 11787.7, 14853.7, 10035.5, 11005.3, 12428.5, 11915.5, 10200.5, 10504.8], "neto": [32686457, 27566697, 34490056, 31444099, 31208013, 29337052, 37104182, 32227758, 33006423, 36065063, 32363534, 46012846, 28986410, 31968513, 36038711, 35580716, 33519460, 33852329]}, "SUPERMERCADOS": {"kg": [4902.2, 3802.1, 4477.5, 4142.3, 5755.1, 5558.9, 7834.2, 8231.1, 8052.4, 14941.4, 14898.2, 14134.3, 16106.6, 14661.8, 14293.4, 16629.9, 16681.0, 14873.9], "neto": [18827327, 14446158, 16293943, 15389477, 20498694, 19100040, 27260189, 28787500, 28075361, 59352275, 60821497, 58149354, 66016815, 60214374, 58116495, 63642403, 68169497, 60745627]}}, "KANSAS_SALSAS": {"CADENA REGIONAL": {"kg": [16.5, 490.9, 127.3, 262.9, 136.6, 438.5, 216.9, 280.3, 283.2, 642.2, 391.1, 56.8, 109.1, 60.7, 273.7, 159.0, 83.8, 176.1], "neto": [67920, 3099930, 812832, 1832057, 918613, 2601711, 1387252, 1790945, 1903645, 4566647, 2863950, 1232226, 847182, 468540, 2026752, 993900, 608724, 1366331]}, "CLIENTES DIRECTOS": {"kg": [4020.7, 3143.1, 3877.3, 4878.0, 4601.9, 4436.4, 5231.4, 5118.2, 7185.3, 6841.1, 4547.9, 7417.7, 5658.4, 7345.4, 6384.1, 5419.1, 4262.5, 8039.7], "neto": [14328200, 12004902, 15973387, 19233524, 22974378, 21146223, 20488876, 27956987, 35835446, 30610450, 22990280, 35057733, 34528143, 46132335, 32417297, 29248189, 21641708, 49652236]}, "DISTRIBUIDORES": {"kg": [8045.9, 7116.9, 7126.7, 8561.6, 5560.3, 6040.9, 7564.4, 7470.8, 6205.5, 10748.7, 8204.6, 9032.7, 6998.2, 6128.7, 9048.7, 6153.2, 5927.2, 6782.2], "neto": [30821848, 27084002, 29947030, 34171523, 23423148, 26761523, 31265140, 31858654, 27729905, 47849524, 38271231, 42043487, 32995643, 28289009, 42433814, 30688821, 27679733, 33147144]}, "EXPORTACIONES": {"kg": [0,0,0,0,0,0,0,1380.9,0,0,0,1350.3,0,0,0,869.4,0,0], "neto": [0,0,0,0,0,0,0,10212582,0,0,0,11172989,0,0,0,7005146,0,0]}, "KANSAS- B54": {"kg": [7137.9, 7260.7, 7876.0, 7445.0, 6941.2, 6828.9, 8837.4, 7616.0, 8509.8, 8667.8, 7330.7, 10054.6, 6123.3, 7442.5, 7600.8, 5874.6, 6252.8, 7232.0], "neto": [18695089, 18492181, 20674555, 20406493, 21286140, 22173360, 28649890, 24709567, 27514768, 29593353, 24867463, 32542785, 20973283, 25039862, 26741362, 19559255, 21199041, 25510013]}, "SUPERMERCADOS": {"kg": [18451.1, 8605.6, 13083.1, 17287.1, 13497.2, 18721.8, 15697.2, 8165.6, 12530.3, 20351.5, 9869.3, 14800.3, 15417.7, 16266.4, 16336.4, 22774.1, 13248.2, 17843.7], "neto": [81911426, 47316391, 74789394, 96563578, 75927684, 104066854, 91227671, 48135725, 72001715, 120579063, 57382489, 90931969, 99707612, 99160506, 98176138, 101361135, 112295945, 99713105]}}, "KYROS": {"CADENA REGIONAL": {"kg": [1059.8, 1162.0, 292.6, 1355.2, 1435.2, 1065.4, 1068.1, 1537.7, 1091.6, 2020.3, 1959.7, 1515.6, 1141.1, 1137.1, 1396.6, 1653.2, 1316.5, 1937.5], "neto": [7440731, 7916160, 2284182, 9891519, 10788051, 8196006, 8152968, 11853849, 8494102, 16367724, 16256304, 12596814, 8938179, 9626346, 11855346, 13830048, 12049080, 18229509]}, "CLIENTES DIRECTOS": {"kg": [4909.1, 6124.7, 6424.3, 6766.2, 5326.8, 8937.0, 8599.0, 12526.4, 8973.8, 8334.8, 12012.6, 9525.6, 9047.8, 11120.7, 10874.3, 9814.4, 14381.9, 15939.2], "neto": [22627681, 24516640, 25082361, 30058680, 29744524, 50382613, 41141055, 81103632, 50990217, 45505880, 67297462, 53171878, 69767866, 77724676, 62589253, 61864353, 94560039, 107264159]}, "DISTRIBUIDORES": {"kg": [20411.1, 22795.2, 19724.6, 25275.9, 21576.6, 23217.7, 22009.0, 22370.7, 25670.5, 28726.9, 21938.6, 23215.8, 25203.5, 19565.1, 21861.7, 22064.9, 21087.3, 24889.3], "neto": [120688161, 136076194, 115405704, 146410868, 135146865, 142977580, 137222038, 141796467, 157084508, 188273252, 149508368, 202763632, 192970452, 152687869, 191632182, 170115364, 159674877, 194268776]}, "EXPORTACIONES": {"kg": [1324.8,0,993.6,0,0,993.6,0,993.6,0,1324.8,0,1656.0,0,1653.2,0,1656.0,0,0], "neto": [10307606,0,7872190,0,0,8746704,0,9019253,0,13894416,0,17795182,0,17079163,0,16875734,0,0]}, "KANSAS- B54": {"kg": [1322.7, 1140.9, 1098.0, 1350.9, 1095.1, 1057.1, 1400.3, 1027.2, 1212.4, 1306.8, 947.0, 1627.9, 1056.4, 1239.7, 1170.3, 1292.9, 1194.1, 1291.8], "neto": [2062789, 1775916, 1677500, 2101270, 1833456, 1904598, 2543293, 1898858, 2211408, 2358380, 1756796, 2346849, 1730800, 2257511, 2330710, 2651300, 2294140, 2365343]}, "SUPERMERCADOS": {"kg": [44405.6, 42719.3, 43108.4, 51206.3, 72767.4, 34025.3, 66113.0, 44623.7, 62946.9, 54018.7, 69107.6, 64702.7, 49795.9, 67360.6, 75323.2, 78447.5, 64509.5, 67758.0], "neto": [254212578, 247011484, 255080737, 306655719, 434221749, 213913426, 415410533, 281910126, 399877434, 349037969, 457457736, 436706626, 338348870, 459618281, 516530507, 543542302, 447407125, 470415280]}}}};
 const CLIENTES = {"months": ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"], "clients": {"Coto": {"kg": [26533.5, 19655.7, 20939.2, 26944.6, 36223.1, 23958.1, 42885.2, 16164.7, 41041.0, 35824.6, 43340.2, 35902.7, 35120.4, 38664.6, 40546.2, 48049.4, 39003.2, 41885.3], "neto": [94363482, 76477536, 97214105, 111709799, 185232025, 119649345, 235093137, 13249807, 230385464, 126554339, 220246243, 150338200, 159309923, 216704254, 247717232, 282220310, 225406277, 204261954]}, "Dia": {"kg": [21848.2, 20357.8, 22601.6, 18859.1, 39716.4, 14779.2, 24115.1, 23276.0, 21965.9, 22141.7, 28776.7, 23679.8, 19968.6, 27493.2, 34148.5, 28080.0, 26924.1, 22712.6], "neto": [116691115, 111015248, 121938342, 99987897, 230206832, 79678597, 141230905, 130488207, 118500824, 113452227, 172756436, 123650614, 93237158, 179419445, 173144566, 145462746, 203496739, 85546237]}, "Cencosud": {"kg": [8079.1, 7688.9, 10186.0, 13132.6, 8395.9, 12438.0, 8607.8, 10152.2, 9439.2, 12626.6, 9047.7, 16838.0, 10840.8, 14854.2, 14542.2, 18051.7, 11277.6, 15027.8], "neto": [40764581, 39494794, 56167103, 70804257, 43751542, 70286459, 46819304, 55688539, 52359504, 74753573, 48513305, 102300797, 63267399, 91320022, 88968097, 104817277, 65464869, 90622988]}, "INC": {"kg": [7305.0, 3994.7, 4023.1, 7801.4, 5735.3, 2977.6, 11409.0, 6846.3, 7426.8, 10332.5, 8811.1, 8389.9, 10397.4, 12127.2, 10958.0, 18017.6, 13067.3, 17193.6], "neto": [35560793, 24037327, 24770427, 47482176, 33867426, 18845014, 72293171, 44618654, 48739222, 67064995, 60587199, 58223255, 70768174, 83081297, 74983660, 126298699, 90622033, 114412103]}, "Delivery Hero (PedidosYa)": {"kg": [253.6, 0.0, 0, 0, 2931.2, 6154.6, 7799.9, 9623.7, 8633.4, 5142.4, 5149.0, 5285.0, 6659.2, 10881.7, 7326.0, 9948.5, 13365.7, 18116.8], "neto": [-31383, -206075, 0, 0, 12772663, 39091173, 40921878, 62044889, 56708092, 6925016, 39879953, 42321511, 53536151, 84357631, 48829733, 63788823, 85362214, 121331535]}, "Bistro S.A.": {"kg": [15425.6, 13794.1, 15702.3, 14601.3, 13408.3, 12592.2, 16130.0, 13810.5, 14960.3, 15517.5, 13850.7, 17756.4, 12414.4, 13568.7, 14432.1, 13353.8, 12881.6, 13240.9], "neto": [38959054, 34427412, 39169634, 36946399, 36410210, 34477594, 44311129, 38273162, 41276294, 43332351, 38554847, 52255481, 34572105, 38512315, 40988372, 37852543, 37691429, 39683532]}, "Green & Co": {"kg": [4641.1, 5678.6, 2390.0, 4112.9, 3690.6, 2785.8, 4763.2, 3344.0, 4388.7, 3766.3, 4616.8, 2735.2, 3568.9, 2431.1, 3137.6, 3448.1, 3261.5, 2851.2], "neto": [28865023, 36793433, 15185381, 26808828, 25595247, 19994373, 33059913, 23542218, 30154996, 27407468, 36044455, 22838515, 29132454, 20249289, 26203368, 29055915, 27728848, 22274045]}, "Samir Sayegh": {"kg": [4400.5, 4797.1, 5131.2, 6184.6, 5585.1, 5972.6, 5247.9, 5219.7, 5848.9, 5870.0, 5025.0, 5860.7, 4495.3, 4375.0, 4788.8, 4011.4, 5198.4, 5143.7], "neto": [17129171, 19114295, 18666048, 21492588, 23070077, 24473803, 19806136, 21236047, 23850062, 24571381, 21926919, 30038892, 22487298, 21065899, 22894645, 21350447, 26567475, 24339688]}, "Gastronomía Eventos": {"kg": [841.8, 1283.6, 1135.5, 3077.3, 903.5, 1791.0, 1069.6, 2880.7, 569.7, 2483.7, 1590.1, 1165.1, 1770.4, 1670.3, 1974.1, 1523.6, 2298.9, 2397.7], "neto": [5021396, 9038717, 8221584, 22227782, 7106204, 14618018, 8146612, 23278157, 3703211, 20618138, 13236853, 9081615, 14972590, 14421788, 16577216, 10834397, 20045489, 17618430]}, "Dorinka": {"kg": [1547.8, 872.8, 1086.2, 1498.6, 747.3, 2276.9, 1153.3, 1871.5, 2424.3, 2803.4, 1182.7, 2384.5, 1008.0, 2114.0, 2354.4, 2765.9, 1816.4, 1950.4], "neto": [10079770, 5605005, 7774477, 10277499, 5020325, 16480978, 8708760, 13738367, 16806628, 18784381, 7552800, 16015788, 7764074, 16239021, 18081314, 21180781, 14401090, 16536732]}, "Plagroup": {"kg": [1518.4, 1104.4, 1068.0, 1841.1, 1271.6, 1299.9, 968.3, 1758.4, 952.0, 4156.0, 1654.8, -745.2, 3246.1, 1922.4, 3522.8, 1716.8, 2144.4, 2203.1], "neto": [7711264, 5932154, 5408444, 10371367, 7023513, 7889019, 5146094, 11094663, 5454922, 22598301, 8596736, 11561912, 21051604, 13784557, 24699266, 11996888, 16021465, 13600125]}, "Makro": {"kg": [2290.9, 1088.3, 1833.0, 3175.2, 1092.9, 1731.7, 1072.5, 2280.7, 810.1, 4326.9, 1946.9, 3564.0, 3951.0, 2877.0, 2373.0, 2112.6, 1849.9, 1705.8], "neto": [10605597, 5087240, 8124099, 18195816, 4794908, 8345469, 4126182, 11931533, 1889717, 24087407, 7482053, 18026033, 20242992, 16118971, 13369531, 9926622, 11064320, 6927105]}, "Otros clientes": {"kg": [38558.2, 38724.3, 39781.8, 44407.2, 37791.0, 40676.0, 43408.6, 43469.9, 45229.9, 55793.9, 44387.3, 57870.9, 40530.8, 40452.8, 45782.2, 41945.6, 35448.7, 43211.8], "neto": [175582997, 170611752, 181858881, 198305931, 189236621, 199269565, 195239424, 218903371, 217393840, 291942728, 226832974, 332868259, 246487838, 232204917, 277333623, 250917154, 209863309, 261762933]}}};
 const PRODUCTOS = {"months": ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"], "brands": {"KYROS": {"HUMMUS CLASICO KYROS 230 GR": {"kg": [17776.7, 15676.3, 15215.9, 17185.4, 17455.4, 16572.0, 18922.8, 15845.4, 21116.1, 19053.0, 21023.6, 20595.8, 16953.5, 20350.2, 19266.0, 26089.6, 17756.0, 22646.0], "neto": [111283434, 99050074, 100253788, 113308336, 116435289, 115433043, 128846165, 117624348, 143474572, 142079000, 153542394, 155592383, 129445707, 161613320, 156115731, 195594671, 139122763, 176650024]}, "HUMMUS OLIVA KYROS 230 GR": {"kg": [13225.7, 15657.3, 11892.8, 19847.9, 15989.1, 12960.3, 19018.5, 14487.2, 21353.2, 17513.1, 18324.8, 18385.1, 15355.3, 15846.1, 16640.0, 18275.6, 17753.2, 18979.6], "neto": [81624540, 97186525, 77820187, 125576559, 105207798, 89296444, 127495277, 103808240, 145222355, 124972943, 134014813, 137674990, 118254608, 125569441, 134757717, 139298900, 136354186, 143542873]}, "HUMMUS AJO AHUMADO KYROS 230 GR": {"kg": [4899.5, 5421.3, 6331.4, 5424.1, 7393.8, 10358.3, 9002.2, 9464.5, 11874.7, 10429.8, 12721.8, 13176.0, 7386.5, 12400.2, 13807.8, 12478.0, 11260.8, 11369.6], "neto": [32465766, 35477238, 40100163, 35972874, 48560816, 69603143, 60072796, 66450868, 81777482, 72835764, 91373890, 99123327, 55776072, 99061651, 103251843, 91772942, 82894775, 84332807]}, "HUMMUS PIMENTON KYROS 230 GR": {"kg": [7999.2, 10125.5, 6958.0, 11393.3, 10754.8, 6838.1, 10810.0, 7475.5, 10831.4, 10208.6, 9386.3, 7588.9, 8244.1, 6777.0, 8515.1, 9661.8, 8484.2, 9424.3], "neto": [50723181, 62524167, 44967544, 72675617, 69857676, 48321391, 72569171, 53165026, 74517921, 72877891, 69370872, 63286984, 63293292, 46973450, 68871601, 74702503, 65362091, 73096685]}, "HUMMUS REMOLACHA KYROS 230 GR": {"kg": [5155.7, 3056.5, 2983.6, 3806.7, 6954.1, 4778.7, 10110.8, 4661.0, 6032.9, 7360.7, 7917.1, 3836.6, 5415.8, 6950.8, 8170.5, 6439.5, 7637.8, 5506.9], "neto": [32472949, 19402992, 19530569, 24934770, 45405456, 33535546, 68958076, 34214393, 42226626, 52903880, 58752270, 48065000, 41609609, 54151190, 61818518, 47730919, 56171520, 41573480]}, "HUMMUS DIA OLIVA 230 GR": {"kg": [5895.4, 5550.4, 5578.0, 5658.0, 10656.4, 2732.4, 5566.9, 6406.0, 6679.2, 6196.2, 7741.8, 6303.8, 6259.7, 7937.8, 8387.6, 7004.9, 6789.6, 6756.5], "neto": [31909248, 30623508, 30775788, 31217400, 61064165, 15829506, 32250620, 37111397, 38694348, 35896203, 47448179, 39441368, 39165071, 49664350, 52479123, 43827580, 42480633, 43128201]}, "HUMMUS DIA CLASICO 230 GR": {"kg": [6138.2, 4780.3, 6933.1, 5895.4, 11517.5, 2028.6, 4813.4, 6287.3, 5710.4, 5798.8, 7330.6, 5713.2, 6458.4, 6875.2, 9298.4, 5818.1, 6408.7, 6160.3], "neto": [33201792, 26374896, 38252736, 32527008, 65887634, 11752209, 27885514, 36423853, 33082069, 33593729, 44977495, 35728630, 40408407, 43015958, 58177745, 36402103, 40097573, 39382652]}, "HUMMUS DIA PIMENTON 230 GR": {"kg": [3979.9, 4313.9, 5936.8, 2953.2, 10518.4, 494.0, 3841.9, 4173.1, 4600.9, 3999.2, 5862.2, 4060.0, 4738.9, 4556.8, 7264.3, 4349.8, 4868.6, 3880.6], "neto": [21459816, 23801364, 32755428, 16293960, 60099430, 2862103, 22257245, 24175973, 26652446, 23168641, 35987633, 25402037, 29650100, 28510376, 45450824, 27215235, 30461722, 24870162]}, "Otros productos": {"kg": [8363.0, 9360.6, 9812.0, 13790.6, 10961.7, 12533.7, 17102.9, 14279.4, 11696.5, 15173.0, 15657.5, 22584.2, 15432.6, 20382.5, 19276.3, 24811.8, 21530.3, 27092.2], "neto": [22198821, 22855630, 22946471, 42611532, 39216381, 39487543, 64135025, 54608086, 33009850, 57109571, 56809119, 121066260, 94153301, 110434110, 104014896, 152334249, 123039999, 165966182]}}, "KANSAS_SALSAS": {"HONEY MUSTARD KANSAS 280 GR": {"kg": [1828.4, 2396.2, 3334.0, 5134.4, 3450.2, 5402.9, 5150.9, 3410.1, 4965.5, 6326.6, 3809.7, 4532.4, 4326.3, 5313.3, 5449.4, 5970.2, 2275.8, 7597.0], "neto": [10365759, 14592431, 18899005, 30638850, 19869063, 32378580, 30171235, 22682860, 29429766, 38656077, 23434233, 30676946, 28081665, 34770189, 34425265, 38911453, 15789135, 46386978]}, "BARBACOA  KANSAS 295 GR": {"kg": [2005.4, 2584.2, 3597.2, 4451.3, 3867.7, 4828.6, 3807.9, 3653.0, 4689.0, 5600.0, 3953.9, 5029.5, 4176.9, 4781.1, 5078.7, 4726.8, 3132.0, 6275.2], "neto": [10753834, 14317349, 19680371, 24546957, 22068007, 26659849, 21430795, 21774716, 27137808, 32400823, 23687736, 30640962, 25711047, 28988700, 31362264, 26999908, 20041835, 37060350]}, "CAESAR KANSAS 260 GR": {"kg": [549.9, 1306.2, 3479.1, 1926.9, 3271.8, 2363.7, 2407.1, 1789.8, 2242.0, 4335.5, 1978.1, 4636.6, 4548.7, 3060.5, 2593.0, 1799.7, 2327.8, 1110.2], "neto": [3580001, 8757110, 23297560, 13031743, 22992255, 16571453, 17205891, 13295088, 16532535, 32138046, 15517561, 35128679, 35393490, 24128508, 21658599, 14763883, 18160711, 8431214]}, "KETCHUP KANSAS 295 GR": {"kg": [1293.3, 2091.0, 1355.5, 2922.9, 1505.7, 3336.4, 2400.1, 2177.1, 2530.5, 3153.3, 1882.1, 1804.5, 1439.9, 1623.1, 2344.4, 2341.7, 971.7, 3516.1], "neto": [6116924, 10464485, 6691428, 14881942, 7651992, 16645525, 12145612, 12427247, 12668492, 16411308, 10157495, 9613148, 7612889, 9706825, 12379297, 13368505, 5385375, 18327737]}, "KETCHUP KANSAS X 3KG": {"kg": [3987.0, 3762.0, 4014.0, 3987.0, 3969.0, 3582.0, 4617.0, 3807.0, 4752.0, 4383.0, 3735.0, 4932.0, 2862.0, 3672.0, 3015.0, 3798.0, 3627.0, 3798.0], "neto": [8844176, 8324298, 8868734, 8807624, 9842636, 9324422, 12069859, 9960295, 12451878, 11432154, 9815156, 12951100, 7504506, 8789804, 7195196, 9096877, 9025138, 9618885]}, "SALSA CHEDDAR KANSAS 265 GR": {"kg": [340.3, 299.5, 1209.5, 541.9, 1762.5, 1158.8, 2324.8, 911.9, 1224.3, 1661.3, 565.2, 1960.7, 1493.0, 2409.9, 721.3, 1016.5, 1885.7, 662.0], "neto": [2248033, 1724121, 7363442, 3353768, 11015495, 7733852, 14988065, 6373120, 8205427, 11152219, 4119402, 14156197, 11452254, 18231099, 5141550, 7847307, 13959913, 5161537]}, "BARBACOA KANSAS X 3KG": {"kg": [1611.0, 2466.0, 2718.0, 3276.0, 2421.0, 2754.0, 4032.0, 2556.0, 2952.0, 4428.0, 2970.0, 3591.0, 2916.0, 2718.0, 3969.0, 2565.0, 2115.0, 3618.0], "neto": [3701859, 5752550, 6348101, 7684304, 5722294, 7142515, 10176854, 6325157, 7605869, 11778665, 8146170, 9817260, 7983470, 7418130, 10955625, 6951848, 5870861, 12318211]}, "MAYONESA KANSAS X 3KG": {"kg": [3186.0, 2745.0, 2997.0, 3051.0, 2466.0, 2610.0, 3294.0, 2880.0, 2601.0, 3312.0, 2655.0, 3798.0, 2403.0, 2781.0, 2637.0, 1305.0, 1809.0, 2430.0], "neto": [7150522, 5351463, 6150642, 6831229, 6208755, 7317856, 9250816, 8125773, 7262071, 9372672, 7485470, 10671566, 6859758, 8600974, 8146922, 4050310, 5850772, 7916643]}, "Otros productos": {"kg": [22871.0, 8967.0, 9386.2, 13143.4, 8023.2, 10430.0, 9513.5, 8847.0, 8757.8, 14051.7, 8794.7, 12427.7, 10140.9, 10884.9, 13835.9, 17726.5, 11630.4, 11067.2], "neto": [93063376, 38713598, 44897915, 62430759, 39159468, 52975618, 45579701, 43700205, 43691635, 69857074, 44012190, 59325330, 58452783, 58456023, 70530645, 66866355, 89341410, 64167273]}}, "KANSAS_BAKERY": {"PAN DE HAMBURGUESA DE PAPA C/ PARMESANO X 4UN": {"kg": [5095.8, 4009.3, 4840.9, 4763.9, 5587.9, 5941.1, 8000.3, 7130.5, 8498.2, 11187.7, 10862.3, 10182.2, 11355.8, 11792.5, 11055.2, 12601.4, 11710.1, 13001.8], "neto": [19706146, 15318910, 17923375, 17575709, 22353490, 23080936, 32345377, 28511482, 33882634, 50539568, 50269306, 48449845, 54425671, 54639324, 57651771, 59871049, 61360366, 68221525]}, "PAN DE HAMBURGUESA DE PAPA TRADICIONAL X 4UN": {"kg": [1425.6, 1224.7, 1388.2, 1601.3, 2355.1, 2322.7, 3424.0, 2963.5, 2936.9, 4330.4, 4370.0, 4492.8, 4792.0, 4710.6, 4658.0, 4594.0, 5367.6, 5526.4], "neto": [5112206, 4305187, 4668976, 5296372, 8278228, 8034953, 12120308, 10234121, 9583135, 16362284, 16742588, 17194533, 18271962, 17921139, 17571059, 16462310, 20800766, 21823602]}, "PAN DE HAMBURGUESA DE PAPA C/ SESAMO BLANCO X 4UN": {"kg": [1451.5, 1396.1, 1505.5, 1600.9, 2062.4, 2128.0, 2839.3, 2679.5, 2643.5, 4197.6, 3187.8, 3459.6, 4353.8, 4111.2, 4372.6, 4665.6, 4649.4, 3577.7], "neto": [5439548, 5151847, 5412250, 5825915, 7788005, 7839110, 10687065, 10030998, 9711004, 16719011, 13475177, 14659917, 18189220, 17025918, 18555070, 18125109, 18752944, 14661781]}, "CAMPERO X 16 UNIDADES": {"kg": [3781.8, 3076.5, 3866.9, 3380.5, 3322.7, 3292.3, 4122.2, 3444.3, 3426.1, 3730.1, 3216.3, 3921.6, 2815.0, 2906.2, 3681.4, 3456.5, 3204.2, 3137.3], "neto": [7332422, 5962014, 7494513, 6545542, 6307563, 6380504, 7989629, 6672268, 6642797, 7226326, 6236095, 7603557, 5458057, 5908964, 7494806, 7036825, 6993408, 6898920]}, "PAN HAMBURGUESA B54 X 50 UNI": {"kg": [1350.0, 1165.0, 1775.0, 1540.0, 1690.0, 1415.0, 1765.0, 1570.0, 1555.0, 1720.0, 1515.0, 2050.0, 1280.0, 1470.0, 1540.0, 1325.0, 830.0, 1005.0], "neto": [4976686, 4294696, 6440200, 5649460, 6209798, 5216304, 6506556, 5750837, 5732405, 6340666, 5584948, 7557190, 5206351, 5686325, 6207531, 6077087, 5822951, 5647573]}, "PAN HAMBURGUESA C/SESAMO BLANCO 50 UND KANSAS": {"kg": [1300.0, 1120.0, 1335.0, 1335.0, 1275.0, 1215.0, 1530.0, 1275.0, 1375.0, 1360.0, 1285.0, 1510.0, 1205.0, 1250.0, 1380.0, 1355.0, 1220.0, 1225.0], "neto": [4832123, 4163060, 4962219, 4943634, 4647499, 4516177, 5638393, 4739198, 5055144, 5055962, 4776368, 5612697, 4480233, 4871857, 5385958, 5288386, 5104872, 5165264]}, "PAN DE PANCHO KANSAS X 6 UNI": {"kg": [1147.1, 784.7, 884.1, 961.0, 1791.2, 1531.2, 2667.4, 2018.0, 1830.5, 3218.5, 1656.6, 1648.4, 1718.0, 1565.2, 1959.5, 1858.2, 3066.4, 1467.5], "neto": [2668829, 1836380, 2005345, 2183942, 4322722, 3670597, 6523522, 4787875, 4125639, 7404265, 4339268, 4780356, 5123539, 4465434, 6139184, 5756086, 10688278, 3940573]}, "MOLDE BLANCO X 4 UNIDADES": {"kg": [1088.0, 932.0, 1004.0, 852.0, 808.0, 800.0, 1020.0, 848.0, 916.0, 1000.0, 952.0, 1180.0, 840.0, 884.0, 976.0, 944.0, 752.0, 800.0], "neto": [3701400, 3170685, 3415631, 2898523, 2680794, 2721618, 3470063, 2884915, 3116253, 3402023, 3238725, 4014387, 2857699, 3154354, 3486392, 3372084, 2879489, 3086400]}, "Otros productos": {"kg": [5498.4, 4772.8, 5546.5, 5212.3, 5661.7, 5025.8, 6525.4, 5658.3, 5899.7, 7057.4, 6024.6, 7286.5, 5060.2, 5422.3, 5993.3, 6047.0, 5474.3, 6010.7], "neto": [14085589, 12179923, 14206171, 13012121, 14470450, 13203038, 17258624, 15085183, 16895850, 19799263, 16516192, 25248427, 13664023, 14633564, 16601938, 16909774, 16288368, 18025122]}}}};
+const COMPETENCIA = {"months": ["2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"], "categories": {"KETCHUP": {"Hellmanns": [342777.6, 301920.8, 331347.6, 338599.4, 345440.2, 361711.7, 344833.9, 379565.2, 331787.9, 334456.0, 333809.0, 363202.0, 306580.4, 287186.8, 319304.6, 287838.7, 307529.1, 306209.0, 314201.8, 310919.1, 313750.7, 331921.8, 328970.3, 344687.6, 296972.3, 279374.5, 288417.8, 287839.0, 285322.9, 289758.2], "Natura": [194289.9, 182241.5, 161862.2, 118014.8, 139659.3, 169703.3, 157289.4, 163067.0, 147350.6, 163577.0, 191590.5, 211047.6, 211459.0, 206784.2, 231011.2, 209919.2, 202817.7, 196310.5, 205505.3, 194881.5, 199328.7, 198982.8, 182408.8, 218120.5, 197953.4, 183417.6, 188073.5, 171026.3, 165465.6, 160807.3], "Danica": [36646.1, 24408.9, 18696.3, 8460.0, 12707.5, 29327.1, 47194.8, 64115.6, 70539.7, 73868.0, 76019.0, 81921.9, 74100.9, 69632.4, 75765.0, 73117.9, 73156.7, 73566.6, 90271.4, 88116.9, 84751.9, 102087.4, 94583.0, 103006.9, 98352.2, 91426.4, 99484.9, 89123.2, 90504.1, 99050.8], "La Campagnola": [52998.6, 69581.2, 79431.3, 86544.2, 79492.6, 70017.5, 53856.8, 55517.3, 48685.0, 52099.7, 54808.5, 54399.6, 46962.1, 47732.6, 54139.0, 48443.9, 53960.7, 50690.6, 50856.4, 52145.9, 47492.6, 47843.0, 47082.0, 50181.1, 40225.2, 38104.4, 37590.4, 33805.5, 32326.4, 32139.9], "Heinz": [7485.1, 12880.1, 15274.3, 14049.3, 16984.7, 16103.4, 7269.1, 5729.7, 6974.0, 8175.9, 8270.5, 7553.6, 5187.1, 6477.6, 7864.6, 6870.2, 9384.9, 11397.2, 12595.5, 20080.2, 18194.2, 9741.2, 9037.7, 9287.8, 5659.8, 6905.4, 9064.8, 9017.9, 11401.4, 9951.8], "O Marcas": [7015.8, 5148.6, 7739.3, 7340.9, 8351.5, 7894.6, 10787.8, 10781.8, 7813.4, 9898.4, 6665.1, 8969.4, 9996.8, 8340.2, 7244.9, 5984.0, 5440.0, 5172.5, 5642.7, 6688.1, 6077.8, 6322.8, 4676.9, 4253.4, 3921.4, 3748.9, 2638.4, 2126.2, 1803.1, 1407.8], "Kansas (propia)": [5709.6, 4994.9, 4537.9, 3330.6, 3766.8, 4030.0, 4065.5, 4128.0, 4343.5, 5519.3, 5875.4, 6266.4, 4657.5, 4618.9, 5138.3, 3272.2, 3190.6, 2818.4, 3142.1, 3066.2, 3381.8, 3549.4, 3634.3, 3527.6, 3150.3, 2830.3, 3421.8, 3745.1, 3294.0, 3052.9], "Molto": [5339.3, 6081.3, 6468.3, 6540.1, 5233.1, 5949.1, 5622.6, 4727.9, 3967.6, 3490.9, 3524.6, 5054.9, 3042.6, 2666.2, 4736.0, 4712.6, 4673.9, 3967.3, 3892.0, 3522.8, 4882.2, 5584.8, 4743.9, 4563.9, 1782.0, 1132.0, 871.7, 747.8, 572.7, 830.0], "Otros competidores": [3020.0, 2792.2, 3969.8, 4414.2, 4547.2, 3819.5, 6325.4, 3957.5, 3676.2, 3375.1, 3181.5, 3096.5, 2908.9, 2818.5, 5097.4, 13040.3, 11814.3, 11898.2, 15418.0, 12489.2, 11497.1, 11077.6, 11038.4, 9698.5, 8155.2, 13132.3, 15755.6, 18571.3, 21234.0, 25289.9]}, "OTROS ADEREZOS": {"O Marcas": [69156.0, 77812.5, 90385.9, 82039.1, 86553.8, 88879.4, 91755.7, 81406.2, 76830.7, 81974.8, 82091.4, 104039.0, 86033.4, 89866.1, 98095.9, 85001.7, 84985.5, 84108.6, 88933.2, 87690.5, 85369.2, 85007.0, 85912.3, 100443.2, 81212.1, 76750.9, 80001.4, 72505.5, 74355.9, 74670.6], "Dos Anclas": [50482.1, 46919.0, 43544.5, 41141.6, 43778.5, 53793.6, 50634.4, 54960.8, 54839.6, 59067.9, 59384.7, 73090.4, 67868.1, 60404.8, 63886.5, 54057.6, 52965.8, 48455.0, 48000.3, 54027.1, 59201.3, 63940.9, 66904.8, 77810.5, 71508.4, 69257.4, 73478.5, 62778.7, 59481.8, 55449.0], "Hellmanns": [34479.4, 27397.9, 42063.8, 36836.3, 26624.0, 48836.1, 50953.6, 68016.6, 54116.5, 54213.9, 41201.3, 51131.2, 29609.3, 38293.7, 43605.7, 48117.5, 51449.4, 50709.5, 50406.0, 49267.7, 45461.7, 50917.1, 54540.0, 65151.2, 43614.2, 42519.6, 39666.8, 35373.5, 45833.7, 45738.1], "Kyros (propia)": [28919.1, 36481.1, 39712.3, 37599.8, 33695.3, 36366.5, 32724.0, 34144.2, 34421.1, 38512.2, 39040.9, 43827.2, 39173.9, 36547.8, 39657.4, 33268.0, 36256.5, 39206.4, 42692.3, 49258.7, 45280.5, 55449.8, 52211.1, 58412.4, 48862.0, 46440.6, 51802.5, 51136.0, 49368.8, 59193.5], "La Parmesana": [44198.3, 32220.4, 33423.5, 30193.5, 29456.2, 29613.5, 30384.7, 34057.7, 35654.8, 37202.2, 36532.9, 39322.7, 32799.7, 33022.3, 32880.1, 31862.4, 30954.9, 29173.7, 28781.3, 32029.5, 29800.7, 34276.8, 33212.7, 41819.0, 34677.1, 32962.5, 36252.4, 32181.8, 29620.7, 29936.2], "La Campagnola": [20570.2, 31896.0, 37471.4, 44268.7, 39040.5, 42207.7, 29850.7, 27601.7, 29826.1, 31376.0, 35354.6, 43894.3, 35931.5, 32803.5, 39855.7, 36996.4, 35899.0, 38142.7, 37993.6, 37106.1, 36182.3, 30193.4, 21485.8, 33971.8, 26299.2, 27295.3, 29344.6, 28230.1, 26867.6, 27555.7], "Tau Delta": [28232.9, 26552.2, 27446.1, 23591.8, 23819.8, 25476.0, 27593.3, 26966.0, 23278.2, 25597.1, 25629.3, 29429.9, 29027.2, 28682.0, 29493.1, 26414.0, 27757.5, 27426.7, 31772.9, 34170.6, 39948.1, 43944.3, 40778.0, 52825.2, 42997.7, 40743.6, 44249.9, 39960.4, 37177.6, 36440.5], "Marcas Propias": [11744.3, 10269.3, 11374.3, 10555.3, 12792.8, 14376.3, 23351.5, 27918.9, 26621.7, 28954.0, 31636.4, 34227.4, 28350.1, 30653.2, 32681.3, 31693.7, 31590.5, 32122.5, 35836.9, 37669.2, 34599.3, 35394.8, 36786.5, 45069.9, 38899.2, 40663.3, 44985.8, 42348.1, 44197.5, 51002.9], "Otros competidores": [95563.6, 80356.2, 78063.7, 65472.3, 70058.5, 86200.9, 95741.9, 105950.0, 102727.0, 107374.0, 111086.5, 134993.0, 107768.6, 96143.5, 102350.4, 95516.7, 98411.2, 101129.1, 108767.4, 109343.7, 103495.5, 112684.5, 118227.9, 137374.6, 114371.7, 108008.0, 118339.7, 113429.5, 112072.0, 130841.8]}}};
 const KANSAS_COLOR = '#B5342A';
 const KYROS_COLOR = '#D9662E';
 
@@ -650,13 +679,13 @@ const kpis = [
 const kpiGrid = document.getElementById('kpiGrid');
 kpis.forEach((k,i)=>{
   const isPos = k.delta.startsWith('▲');
-  const isHero = i === 3;
   const div = document.createElement('div');
-  div.className = 'kpi ' + k.brand + (isHero ? ' hero' : '');
+  div.className = 'kpi';
   const iconLetter = k.brand === 'kansas' ? 'K' : 'Y';
+  const brandColor = k.brand === 'kansas' ? 'var(--kansas)' : 'var(--kyros)';
   div.innerHTML = `
-    <div class="kpi-icon">${iconLetter}</div>
-    <div class="kpi-label">${k.label}</div>
+    <div class="kpi-icon" style="color:${brandColor};">${iconLetter}</div>
+    <div class="kpi-label"><span class="kpi-brand-dot" style="background:${brandColor};"></span>${k.label}</div>
     <div class="kpi-value">${k.value}</div>
     <div class="kpi-delta ${isPos?'pos':'neg'}">${k.delta}</div>
     <div class="kpi-note">${k.note}</div>
@@ -688,7 +717,7 @@ new Chart(document.getElementById('mixDonut').getContext('2d'), {
       const cx = (left+right)/2, cy = (top+bottom)/2;
       ctx.save();
       ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillStyle='#241F1B'; ctx.font="700 22px 'Bebas Neue'";
+      ctx.fillStyle='#1F2130'; ctx.font="700 22px 'Quicksand'";
       ctx.fillText(fmt(Math.round(mixTotal))+' kg', cx, cy-6);
       ctx.fillStyle='#948C7D'; ctx.font="11px 'JetBrains Mono'";
       ctx.fillText('jun-26 total', cx, cy+14);
@@ -772,8 +801,8 @@ let volChart = new Chart(volCtx, {
       annotation: undefined,
     },
     scales:{
-      x:{ ticks:{color:'#8C8478', maxRotation:0, autoSkip:true, maxTicksLimit:14, font:{family:'JetBrains Mono', size:10}}, grid:{color:'#EFEAE0', drawTicks:false} },
-      y:{ ticks:{color:'#8C8478', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#EFEAE0', drawTicks:false} }
+      x:{ ticks:{color:'#9494A8', maxRotation:0, autoSkip:true, maxTicksLimit:14, font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} },
+      y:{ ticks:{color:'#9494A8', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} }
     }
   },
   plugins: [{
@@ -796,7 +825,7 @@ let volChart = new Chart(volCtx, {
   }]
 });
 
-document.querySelectorAll('.tbtn').forEach(btn=>{
+document.querySelectorAll('.tbtn[data-series]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     btn.classList.toggle('active');
     const series = btn.dataset.series;
@@ -821,10 +850,10 @@ let somChart = new Chart(somCtx, {
   },
   options:{
     maintainAspectRatio:false,
-    plugins:{ legend:{ labels:{color:'#241F1B', font:{family:'Inter', size:11}} } },
+    plugins:{ legend:{ labels:{color:'#1F2130', font:{family:'Inter', size:11}} } },
     scales:{
-      x:{ ticks:{color:'#8C8478', maxTicksLimit:10, font:{family:'JetBrains Mono', size:9}}, grid:{color:'#EFEAE0', drawTicks:false} },
-      y:{ ticks:{color:'#8C8478', callback:v=>v+'%', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#EFEAE0', drawTicks:false} }
+      x:{ ticks:{color:'#9494A8', maxTicksLimit:10, font:{family:'JetBrains Mono', size:9}}, grid:{color:'#ECECF5', drawTicks:false} },
+      y:{ ticks:{color:'#9494A8', callback:v=>v+'%', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} }
     }
   }
 });
@@ -861,10 +890,10 @@ new Chart(vpCtx, {
   },
   options:{
     maintainAspectRatio:false,
-    plugins:{ legend:{ position:'bottom', labels:{color:'#241F1B', font:{family:'Inter', size:10.5}, boxWidth:12} } },
+    plugins:{ legend:{ position:'bottom', labels:{color:'#1F2130', font:{family:'Inter', size:10.5}, boxWidth:12} } },
     scales:{
-      x:{ stacked:true, ticks:{color:'#8C8478', maxTicksLimit:12, font:{family:'JetBrains Mono', size:9}}, grid:{display:false} },
-      y:{ stacked:true, ticks:{color:'#8C8478', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#EFEAE0', drawTicks:false} }
+      x:{ stacked:true, ticks:{color:'#9494A8', maxTicksLimit:12, font:{family:'JetBrains Mono', size:9}}, grid:{display:false} },
+      y:{ stacked:true, ticks:{color:'#9494A8', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} }
     }
   }
 });
@@ -910,6 +939,60 @@ function applyRange(key){
 
 document.getElementById('categorySelect').addEventListener('change', () => applyRange(rangeSelect.value));
 
+// ---- Competencia ----
+const COMP_COLORS = ['#37B7E8','#7C6FE0','#3FC79A','#D66FC4','#D9662E','#B5342A','#6E8B4A','#8B93A6','#D8D2C4'];
+let compChart = null;
+function renderCompetencia(){
+  const cat = document.getElementById('compCategory').value;
+  const data = COMPETENCIA.categories[cat];
+  const months = COMPETENCIA.months;
+
+  const entries = Object.entries(data).map(([name, arr])=>{
+    const total = arr.reduce((a,b)=>a+b,0);
+    return {name, total, arr};
+  }).sort((a,b)=> b.total - a.total);
+
+  const ctx = document.getElementById('compChart').getContext('2d');
+  const dataConfig = {
+    labels: entries.map(e=>e.name),
+    datasets: [{
+      data: entries.map(e=>e.total),
+      backgroundColor: entries.map((e,i)=> e.name.includes('(propia)') ? (e.name.includes('Kyros') ? KYROS_COLOR : KANSAS_COLOR) : COMP_COLORS[i % COMP_COLORS.length]),
+      borderRadius: 6, borderSkipped: false,
+    }]
+  };
+  if(!compChart){
+    compChart = new Chart(ctx, {
+      type:'bar',
+      data: dataConfig,
+      options:{
+        indexAxis:'y',
+        maintainAspectRatio:false,
+        plugins:{ legend:{display:false} },
+        scales:{
+          x:{ ticks:{color:'#9494A8', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} },
+          y:{ ticks:{color:'#1F2130', font:{family:'Inter', size:11}}, grid:{display:false} }
+        }
+      }
+    });
+  } else {
+    compChart.data = dataConfig;
+    compChart.update();
+  }
+
+  const tbl = document.getElementById('compTable');
+  const totalKg = entries.reduce((s,e)=>s+e.total,0);
+  let head = '<thead><tr><th>Marca</th><th>Volumen acumulado (Kg)</th><th>% de la categoría</th></tr></thead><tbody>';
+  let body = '';
+  entries.forEach(e=>{
+    const isOurs = e.name.includes('(propia)');
+    body += `<tr class="${isOurs?'new-row':''}"><td>${e.name}</td><td>${fmt(Math.round(e.total))}</td><td>${(e.total/totalKg*100).toFixed(1)}%</td></tr>`;
+  });
+  tbl.innerHTML = head + body + '</tbody>';
+}
+document.getElementById('compCategory').addEventListener('change', renderCompetencia);
+renderCompetencia();
+
 const rangeSelect = document.getElementById('rangeSelect');
 rangeSelect.addEventListener('change', e => applyRange(e.target.value));
 applyRange(rangeSelect.value);
@@ -943,13 +1026,15 @@ const sellinKpis = [
     note: 'Única marca de las tres sin dato de sell-out (Scentia no releva panificados).', color:'bakery', icon:'B' },
 ];
 const kpiGridSellin = document.getElementById('kpiGridSellin');
+const kpiColorMap = {kyros:'var(--kyros)', kansas:'var(--kansas)', bakery:'var(--cilantro)'};
 sellinKpis.forEach((k,i)=>{
   const isPos = k.delta.startsWith('▲');
   const div = document.createElement('div');
-  div.className = 'kpi ' + k.color + (i===0 ? ' hero' : '');
+  div.className = 'kpi';
+  const brandColor = kpiColorMap[k.color];
   div.innerHTML = `
-    <div class="kpi-icon">${k.icon}</div>
-    <div class="kpi-label">${k.label}</div>
+    <div class="kpi-icon" style="color:${brandColor};">${k.icon}</div>
+    <div class="kpi-label"><span class="kpi-brand-dot" style="background:${brandColor};"></span>${k.label}</div>
     <div class="kpi-value">${k.value}</div>
     <div class="kpi-delta ${isPos?'pos':'neg'}">${k.delta}</div>
     <div class="kpi-note">${k.note}</div>
@@ -1015,10 +1100,10 @@ function renderSellinTab(){
       options:{
         maintainAspectRatio:false,
         interaction:{mode:'index', intersect:false},
-        plugins:{ legend:{ labels:{color:'#241F1B', font:{family:'Inter', size:11}} } },
+        plugins:{ legend:{ labels:{color:'#1F2130', font:{family:'Inter', size:11}} } },
         scales:{
-          x:{ ticks:{color:'#8C8478', maxTicksLimit:12, font:{family:'JetBrains Mono', size:9}}, grid:{color:'#EFEAE0', drawTicks:false} },
-          y:{ ticks:{color:'#8C8478', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#EFEAE0', drawTicks:false} }
+          x:{ ticks:{color:'#9494A8', maxTicksLimit:12, font:{family:'JetBrains Mono', size:9}}, grid:{color:'#ECECF5', drawTicks:false} },
+          y:{ ticks:{color:'#9494A8', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} }
         }
       }
     });
@@ -1078,8 +1163,8 @@ function renderClientChart(){
         maintainAspectRatio:false,
         plugins:{ legend:{display:false} },
         scales:{
-          x:{ ticks:{color:'#8C8478', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#EFEAE0', drawTicks:false} },
-          y:{ ticks:{color:'#241F1B', font:{family:'Inter', size:11.5}}, grid:{display:false} }
+          x:{ ticks:{color:'#9494A8', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} },
+          y:{ ticks:{color:'#1F2130', font:{family:'Inter', size:11.5}}, grid:{display:false} }
         }
       }
     });
@@ -1133,8 +1218,8 @@ function renderProductChart(){
         maintainAspectRatio:false,
         plugins:{ legend:{display:false} },
         scales:{
-          x:{ ticks:{color:'#8C8478', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#EFEAE0', drawTicks:false} },
-          y:{ ticks:{color:'#241F1B', font:{family:'Inter', size:11}}, grid:{display:false} }
+          x:{ ticks:{color:'#9494A8', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} },
+          y:{ ticks:{color:'#1F2130', font:{family:'Inter', size:11}}, grid:{display:false} }
         }
       }
     });
@@ -1233,10 +1318,10 @@ function renderAnalizar(){
       options:{
         maintainAspectRatio:false,
         interaction:{mode:'index', intersect:false},
-        plugins:{ legend:{ labels:{color:'#241F1B', font:{family:'Inter', size:11}} } },
+        plugins:{ legend:{ labels:{color:'#1F2130', font:{family:'Inter', size:11}} } },
         scales:{
-          x:{ ticks:{color:'#8C8478', maxTicksLimit:12, font:{family:'JetBrains Mono', size:9}}, grid:{color:'#EFEAE0', drawTicks:false} },
-          y:{ ticks:{color:'#8C8478', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#EFEAE0', drawTicks:false} }
+          x:{ ticks:{color:'#9494A8', maxTicksLimit:12, font:{family:'JetBrains Mono', size:9}}, grid:{color:'#ECECF5', drawTicks:false} },
+          y:{ ticks:{color:'#9494A8', font:{family:'JetBrains Mono', size:10}}, grid:{color:'#ECECF5', drawTicks:false} }
         }
       }
     });
