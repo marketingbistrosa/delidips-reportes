@@ -840,8 +840,18 @@ const somKansasOtrosJun26 = DATA.kansas_otros_vol[idxJun26]/DATA.cat_otros[idxJu
 const kyrosMaxVol = Math.max(...DATA.KYROS.vol);
 const kyrosJun26EsMax = DATA.KYROS.vol[idxJun26] === kyrosMaxVol;
 
+// SOM de Kyros contra Hummus puro (sin mezclar con el resto de Otros Aderezos)
+const scpxIdxDic25 = SCPX.months.indexOf('2025-12');
+const scpxIdxJun26 = SCPX.months.indexOf('2026-06');
+const hummusTotalKg = expCategoryTotalKg('OTROS ADEREZOS','HUMMUS','ALL');
+const kyrosHummusKg = expSeriesForBrand(SCPX.data['OTROS ADEREZOS']['HUMMUS']['Kyros (propia)'], 'ALL').kg;
+const somKyrosHummusDic25 = kyrosHummusKg[scpxIdxDic25]/hummusTotalKg[scpxIdxDic25]*100;
+const somKyrosHummusJun26 = kyrosHummusKg[scpxIdxJun26]/hummusTotalKg[scpxIdxJun26]*100;
+
 const execBullets = [
-  { text: `<b style="color:var(--kyros);">Kyros sigue ganando terreno</b> en Otros Aderezos: subió su participación de mercado de <b>${somKyrosOtrosDic25.toFixed(1)}%</b> (dic-25) a <b>${somKyrosOtrosJun26.toFixed(1)}%</b> (jun-26).` },
+  { text: `<b style="color:var(--kyros);">Kyros contra Hummus puro</b> (sin mezclar con mayo/mostaza/soja): tiene <b>${somKyrosHummusJun26.toFixed(1)}%</b> de participación en jun-26 (venía de <b>${somKyrosHummusDic25.toFixed(1)}%</b> en dic-25) — muy por encima del ${somKyrosOtrosJun26.toFixed(1)}% que se ve mezclado en "Otros Aderezos" general.` },
+  { text: `<b>Ojo:</b> parte de "Marcas Propias" dentro de Hummus probablemente la fabricamos nosotros mismos (somos proveedores de marca blanca de Dia, Carrefour y ~mitad de Cencosud) — no es 100% competencia real, pero no podemos sumarlo directo al SOM porque Scentia es sell-out y nuestra fabricación de marca blanca la medimos por sell-in. Vale la pena pedirle a Scentia que discrimine "Marcas Propias" por cadena en el próximo corte.`, warn:true },
+  { text: `<b style="color:var(--kyros);">Kyros sigue ganando terreno</b> en Otros Aderezos (mezclado): subió su participación de mercado de <b>${somKyrosOtrosDic25.toFixed(1)}%</b> (dic-25) a <b>${somKyrosOtrosJun26.toFixed(1)}%</b> (jun-26).` },
   { text: `<b style="color:var(--kansas);">Kansas retrocedió</b> en la misma categoría, de <b>${somKansasOtrosDic25.toFixed(1)}%</b> a <b>${somKansasOtrosJun26.toFixed(1)}%</b> de participación — se mantiene estable en Ketchup, donde su volumen es chico.` },
   { text: kyrosJun26EsMax
       ? `Jun-26 fue <b>el mes de mayor volumen de Kyros</b> en toda la serie histórica (desde ene-23).`
