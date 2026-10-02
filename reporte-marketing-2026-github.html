@@ -250,7 +250,7 @@
 @media(max-width:900px){.creators-approved{grid-template-columns:1fr}.creators-approved .creator-showcase{grid-template-columns:repeat(2,1fr)}}
 </style><style>
 .pct-monthly-grid{
-  display:grid;grid-template-columns:repeat(7,1fr);gap:0;background:#fff;
+  display:grid;grid-template-columns:repeat(8,1fr);gap:0;background:#fff;
   border-radius:16px;overflow:hidden;
 }
 .pct-month{padding:22px 10px;text-align:center;border-right:1px solid var(--line)}
@@ -266,11 +266,10 @@
 <header>
 <div class="eyebrow">Marketing · Grupo Bistro</div>
 <h1>Reporte de Marketing 2026</h1>
-<div class="sub">Vista ejecutiva del trabajo de Marketing de Kyros Hummus y Kansas Deli. Actividad actualizada a agosto de 2026; información financiera cerrada a julio.</div>
+<div class="sub">Vista ejecutiva del trabajo de Marketing de Kyros Hummus y Kansas Deli. Actividad e información financiera actualizadas a agosto de 2026.</div>
 </header><div class="status-line">
 <span class="status-pill"><b>Actividad:</b> Ene–Ago 2026</span>
-<span class="status-pill"><b>Finanzas:</b> Ene–Jul 2026</span>
-<span class="status-pill"><b>Agosto financiero:</b> pendiente de cierre</span>
+<span class="status-pill"><b>Finanzas:</b> Ene–Ago 2026</span>
 </div>
 <section>
 <div class="kpi-grid" id="kpiGrid"></div>
@@ -285,7 +284,7 @@
 </div>
 </section>
 <section>
-<div class="section-head"><h2>Inversión financiera · Enero–Julio 2026</h2></div>
+<div class="section-head"><h2>Inversión financiera · Enero–Agosto 2026</h2></div>
 <div class="two-col">
 <div class="panel">
 <div class="kpi-note" style="margin-bottom:10px;">Evolución de la inversión total por mes</div>
@@ -294,7 +293,7 @@
 </div>
 </section><section>
 <div class="section-head">
-<h2>% de inversión sobre facturación · Enero–Julio 2026</h2>
+<h2>% de inversión sobre facturación · Enero–Agosto 2026</h2>
 <span class="section-note">Facturación real (Precio Neto, base de ventas) vs. inversión de marketing</span>
 </div>
 <div class="panel"><div class="pct-monthly-grid">
@@ -305,6 +304,7 @@
 <div class="pct-month"><div class="pct-m">May</div><div class="pct-v">3,0%</div><div class="pct-s">$31,0M / $1.034M</div></div>
 <div class="pct-month"><div class="pct-m">Jun</div><div class="pct-v">5,7%</div><div class="pct-s">$57,8M / $1.019M</div></div>
 <div class="pct-month"><div class="pct-m">Jul</div><div class="pct-v">8,4%</div><div class="pct-s">$79,1M / $942M</div></div>
+<div class="pct-month"><div class="pct-m">Ago</div><div class="pct-v">8,2%</div><div class="pct-s">$91,8M / $1.123M</div></div>
 </div></div>
 </section><section>
 <div class="section-head">
@@ -318,7 +318,7 @@
 <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
 <label for="catMonthFilter" style="font-size:13px; color:var(--ink-dim);">Ver:</label>
 <select id="catMonthFilter" style="font-family:Inter,sans-serif; font-size:13px; padding:6px 10px; border-radius:8px; border:1px solid #DADAE8; background:#fff;">
-<option value="all">Todos los meses (Ene–Jul)</option>
+<option value="all">Todos los meses (Ene–Ago)</option>
 <option value="Enero">Enero</option>
 <option value="Febrero">Febrero</option>
 <option value="Marzo">Marzo</option>
@@ -326,11 +326,12 @@
 <option value="Mayo">Mayo</option>
 <option value="Junio">Junio</option>
 <option value="Julio">Julio</option>
+<option value="Agosto">Agosto</option>
 </select>
 <span id="catMonthTotal" style="font-size:13px; color:var(--ink-dim);"></span>
 </div>
 <div class="click-hint">👆 Tocá una barra para ver el detalle (funciona en "Todos los meses" y en cualquier mes puntual)</div>
-<div class="click-hint" style="margin-top:2px;">"Otras" agrupa costos operativos recurrentes que no tienen categoría propia: Community Manager, Informe Scentia, Bagan/TikTok, Revista Actualidad, Reclamos y envíos, Agencia y locación de vía pública, Diseño de etiquetas.</div>
+<div class="click-hint" style="margin-top:2px;">"Otras" agrupa costos operativos recurrentes que no tienen categoría propia: Community Manager, Informe Scentia, Bagan/TikTok, Revista Actualidad, Reclamos y envíos, Agencia y locación de vía pública, Diseño de etiquetas, Webcare. "Vía pública" se abre como categoría propia desde agosto por la implementación de Babaganush.</div>
 <div class="chart-box" style="height:320px;"><canvas id="catChart"></canvas></div>
 <div class="detail-panel" id="catDetail"></div>
 </div>
@@ -693,9 +694,9 @@ const fmtM = n => '$' + (n/1e6).toFixed(1) + 'M';
 
 // ---- KPIs ----
 const kpis = [
-  { label:'Inversión total Ene-Jul', value:'$319,1 M', note:'Información financiera cerrada a julio', icon:'$' },
-  { label:'Gasto fijo / recurrente', value:'61,5%', note:'$196,2 M · estructura mensual de Marketing', icon:'F' },
-  { label:'Inversión / Facturación', value:'4,5%', note:'$319,1 M sobre $7.048 M facturados Ene-Jul', icon:'%' },
+  { label:'Inversión total Ene-Ago', value:'$410,8 M', note:'Información financiera cerrada a agosto', icon:'$' },
+  { label:'Gasto fijo / recurrente', value:'58,8%', note:'$241,8 M · estructura mensual de Marketing', icon:'F' },
+  { label:'Inversión / Facturación', value:'5,0%', note:'$410,8 M sobre $8.171 M facturados Ene-Ago', icon:'%' },
   { label:'Actividad reportada', value:'Ene–Ago', note:'Campañas, medios, eventos, PDV y desarrollo de marca', icon:'↗' },
 ];
 const kpiGrid = document.getElementById('kpiGrid');
@@ -712,10 +713,10 @@ kpis.forEach(k=>{
 });
 
 // ---- Evolución mensual (fijo/variable) ----
-const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul'];
-const fijos = [19381715, 31520860, 45710620, 21420823, 11925981, 32308557, 33911240];
-const variables = [2297500, 7368328, 8423112, 15061946, 19062498, 25486210, 45197369];
-const facturacion = [836829761, 1027479407, 1073790622, 1115702600, 1033735559, 1018917407, 941565850];
+const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago'];
+const fijos = [19381715, 31520860, 45710620, 21420823, 11925981, 32308557, 33911240, 45581148];
+const variables = [2297500, 7368328, 8423112, 15061946, 19062498, 25486210, 45197369, 46185160];
+const facturacion = [836829761, 1027479407, 1073790622, 1115702600, 1033735559, 1018917407, 941565850, 1122579731];
 new Chart(document.getElementById('monthChart').getContext('2d'), {
   type:'bar',
   data:{
@@ -737,21 +738,22 @@ new Chart(document.getElementById('monthChart').getContext('2d'), {
 });
 
 // ---- Categorías principales (con detalle al click) ----
-const cats = ["Streaming (Luzu/Bondi)", "Otras", "Agencia digital (Makosen)", "Ferias y expos", "Influencers", "Sponsoreo deportivo", "Prod. de contenido", "Degustaciones", "Prensa y PR", "Materiales POP/BTL"];
-const catVals = [126243934, 54796698, 30605785, 22690231, 19354758, 17700000, 17375964, 14180475, 9056836, 7072077];
+const cats = ["Streaming (Luzu/Bondi)", "Otras", "Agencia digital (Makosen)", "Ferias y expos", "Influencers", "Prod. de contenido", "Sponsoreo deportivo", "Degustaciones", "Vía pública", "Materiales POP/BTL", "Prensa y PR"];
+const catVals = [164193934, 62648099, 35155785, 30585155, 27924758, 19908384, 17700000, 16348030, 15557851, 11764234, 9056836];
 const catDetails = {
-  'Streaming (Luzu/Bondi)': { total:126243934, items:[['Enero','12.716.052'], ['Febrero','18.777.500'], ['Marzo','34.054.500'], ['Abril','14.300.000'], ['Mayo','0'], ['Junio','24.800.000'], ['Julio','21.595.882']] },
-  'Otras': { total:54796698, items:[['Bagan (TikTok/otros)','20.219.600'], ['Revista Actualidad / Di Nallo','10.490.000'], ['Community Manager','10.160.589'], ['Informe Scentia','9.622.652'], ['Reclamos + envíos','1.895.905'], ['Agencia vía pública','1.452.952'], ['Locación vía pública','607.500'], ['Diseño etiquetas','347.500']] },
-  'Agencia digital (Makosen)': { total:30605785, items:[['Enero','3.305.785'], ['Febrero a Julio','4.550.000/mes']] },
-  'Ferias y expos': { total:22690231, items:[['Expo Caminos y Sabores','13.186.900'], ['Expodietética','5.440.026'], ['Bienestarfest','2.603.305'], ['Expo Córdoba','1.210.000'], ['Expocelíaca','250.000']] },
-  'Influencers': { total:19354758, items:[['Pagos por campaña (+envíos)','18.967.158'], ['Campañas puntuales','387.600']] },
+  'Streaming (Luzu/Bondi)': { total:164193934, items:[['Enero','12.716.052'], ['Febrero','18.777.500'], ['Marzo','34.054.500'], ['Abril','14.300.000'], ['Mayo','0'], ['Junio','24.800.000'], ['Julio','21.595.882'], ['Agosto','37.950.000']] },
+  'Otras': { total:62648099, items:[['Bagan (TikTok/otros)','23.432.690'], ['Community Manager','11.747.045'], ['Informe Scentia','11.117.344'], ['Revista Actualidad / Di Nallo','10.490.000'], ['Reclamos + envíos','3.273.068'], ['Agencia vía pública','1.452.952'], ['Locación vía pública','607.500'], ['Diseño etiquetas','347.500'], ['Webcare','180.000']] },
+  'Agencia digital (Makosen)': { total:35155785, items:[['Enero','3.305.785'], ['Febrero a Agosto','4.550.000/mes']] },
+  'Ferias y expos': { total:30585155, items:[['Expo Caminos y Sabores','13.186.900'], ['Expo Retail Saludable / Expodietética','12.899.450'], ['Bienestarfest','2.603.305'], ['Expo Córdoba','1.210.000'], ['Expocelíaca','685.500']] },
+  'Influencers': { total:27924758, items:[['Pagos por campaña (+envíos)','25.717.158'], ['Campañas puntuales','2.207.600']] },
+  'Prod. de contenido': { total:19908384, items:[['Producción de fotos','11.560.964'], ['Fotos vía pública y modelos','5.680.000'], ['Diseño gráfico','1.547.420'], ['Retoque fotográfico','1.120.000']] },
   'Sponsoreo deportivo': { total:17700000, items:[['Toallas Carrera 9K (julio)','9.000.000'], ['Sponsor (varios)','8.700.000']] },
-  'Prod. de contenido': { total:17375964, items:[['Producción de fotos','10.360.964'], ['Fotos vía pública y modelos','5.680.000'], ['Diseño gráfico','1.335.000']] },
-  'Degustaciones': { total:14180475, items:[['Febrero','1.872.500'],['Marzo','1.681.500'],['Abril','1.848.275'],['Mayo','299.200'],['Junio','4.066.500'],['Julio','4.412.500']] },
+  'Degustaciones': { total:16348030, items:[['Febrero','1.872.500'], ['Marzo','1.681.500'], ['Abril','1.848.275'], ['Mayo','299.200'], ['Junio','4.066.500'], ['Julio','4.412.500'], ['Agosto','2.167.555']] },
+  'Vía pública': { total:15557851, items:[['Babaganush · implementación (agosto)','15.557.851']] },
+  'Materiales POP/BTL': { total:11764234, items:[['Material POP','2.963.050'], ['Stickers','2.887.837'], ['Ploteo heladeras','2.553.525'], ['Bolsas','1.697.036'], ['Remeras/servilletas/merch','1.215.941'], ['Trípticos','446.845']] },
   'Prensa y PR': { total:9056836, items:[['Prensa - Nueva Comunicación','9.056.836']] },
-  'Materiales POP/BTL': { total:7072077, items:[['Material POP','2.963.050'], ['Stickers','2.887.837'], ['Bolsas friselina','901.406'], ['Remeras/servilletas/insumos','319.784']] },
 };
-// Desglose mensual por categoría (fuente: planilla de Vane, Presupuesto_MKTG.xlsx · hoja "Delidips 2026")
+// Desglose mensual por categoría (Ene-Jul: planilla de Vane, Presupuesto_MKTG.xlsx · hoja "Delidips 2026"; Ago: Seguimiento mensual de gastos Angie-Sol)
 // Cada categoría-mes reconcilia exacto contra el total mensual y contra el total Ene-Jul ya validados.
 const catByMonth = {
   'Enero': { 'Prensa y PR':{total:1006261, items:[['Prensa - Nueva Comunicación','1.006.261']]}, 'Streaming (Luzu/Bondi)':{total:12716052, items:[['Enero','12.716.052']]}, 'Agencia digital (Makosen)':{total:3305785, items:[['Fee agencia digital','3.305.785']]}, 'Otras':{total:2701117, items:[['Informe Scentia','1.262.804'], ['Diseño de etiquetas','347.500'], ['Community Manager','1.090.813']]}, 'Prod. de contenido':{total:1950000, items:[['Producción de fotos','1.950.000']]} },
@@ -761,6 +763,7 @@ const catByMonth = {
   'Mayo': { 'Prensa y PR':{total:3750000, items:[['Prensa - Nueva Comunicación','3.750.000']]}, 'Influencers':{total:4635000, items:[['Pagos por campaña (+envíos)','4.635.000']]}, 'Otras':{total:4596013, items:[['Revista Actualidad / Di Nallo','800.000'], ['Informe Scentia','1.369.205'], ['Reclamos','970.032'], ['Community Manager','1.456.776']]}, 'Degustaciones':{total:299200, items:[['Mayo','299.200']]}, 'Ferias y expos':{total:3986487, items:[['Expodietética','1.383.182'], ['Bienestarfest','2.603.305']]}, 'Agencia digital (Makosen)':{total:4550000, items:[['Fee agencia digital','4.550.000']]}, 'Materiales POP/BTL':{total:1003906, items:[['Material POP','67.500'], ['Bolsas friselina','901.406'], ['Remeras/servilletas/insumos','35.000']]}, 'Sponsoreo deportivo':{total:6500000, items:[['Sponsor (varios)','6.500.000']]}, 'Prod. de contenido':{total:1667873, items:[['Producción de fotos','1.667.873']]} },
   'Junio': { 'Influencers':{total:6750000, items:[['Pagos por campaña (+envíos)','6.750.000']]}, 'Streaming (Luzu/Bondi)':{total:24800000, items:[['Junio','24.800.000']]}, 'Degustaciones':{total:4066500, items:[['Junio','4.066.500']]}, 'Ferias y expos':{total:5064645, items:[['Expodietética','1.419.145'], ['Expo Caminos y Sabores','3.645.500']]}, 'Agencia digital (Makosen)':{total:4550000, items:[['Fee agencia digital','4.550.000']]}, 'Materiales POP/BTL':{total:1376433, items:[['Material POP','1.111.800'], ['Remeras/servilletas/insumos','264.633']]}, 'Otras':{total:7901657, items:[['Bagan (TikTok/otros)','4.943.100'], ['Informe Scentia','1.494.692'], ['Community Manager','1.463.865']]}, 'Prod. de contenido':{total:3285532, items:[['Producción de fotos','2.555.532'], ['Diseño gráfico','730.000']]} },
   'Julio': { 'Prensa y PR':{total:4300575, items:[['Prensa - Nueva Comunicación','4.300.575']]}, 'Influencers':{total:6750000, items:[['Pagos por campaña (+envíos)','6.750.000']]}, 'Otras':{total:15081665, items:[['Envío de reclamos','256.430'], ['Bagan (TikTok/otros)','9.300.000'], ['Informe Scentia','1.494.692'], ['Agencia vía pública','1.452.952'], ['Locación vía pública','607.500'], ['Community Manager','1.970.091']]}, 'Streaming (Luzu/Bondi)':{total:21595882, items:[['Julio','21.595.882']]}, 'Degustaciones':{total:4412500, items:[['Julio','4.412.500']]}, 'Ferias y expos':{total:3986400, items:[['Expocelíaca','250.000'], ['Expo Caminos y Sabores','3.736.400']]}, 'Agencia digital (Makosen)':{total:4550000, items:[['Fee agencia digital','4.550.000']]}, 'Prod. de contenido':{total:6210000, items:[['Fotos vía pública y modelos','5.680.000'], ['Diseño gráfico','530.000']]}, 'Materiales POP/BTL':{total:3221587, items:[['Material POP','333.750'], ['Stickers','2.887.837']]}, 'Sponsoreo deportivo':{total:9000000, items:[['Toallas Carrera 9K','9.000.000']]} },
+  'Agosto': { 'Streaming (Luzu/Bondi)':{total:37950000, items:[['Luzu','18.000.000'], ['Urbana Play (Kuarzo)','9.000.000'], ['MTV Networks Argentina','4.400.000'], ['Bagan · servicio TikTok','4.050.000'], ['Mandarina TV','2.500.000']]}, 'Otras':{total:7851401, items:[['Bagan · agencia de medios','3.213.090'], ['Community Manager','1.586.456'], ['Informe Scentia','1.494.692'], ['Reclamos','1.377.163'], ['Webcare','180.000']]}, 'Agencia digital (Makosen)':{total:4550000, items:[['Fee agencia digital','4.550.000']]}, 'Ferias y expos':{total:7894924, items:[['Expo Retail Saludable (stand, espacio, promotoras, lector)','7.459.424'], ['Expo Celíaca (promotoras)','435.500']]}, 'Influencers':{total:8570000, items:[['Embajadora Kyros','6.750.000'], ['Fechas: Nutricionista, Niño, Cheeseburger','1.820.000']]}, 'Degustaciones':{total:2167555, items:[['Coto Abasto y Cabildo (incluye Coto agosto + logística y promotora)','2.167.555']]}, 'Prod. de contenido':{total:2532420, items:[['Sesiones de fotos','1.200.000'], ['Retoque Kyros (Babaganush)','1.120.000'], ['Diseño Bardo (Babaganush)','212.420']]}, 'Materiales POP/BTL':{total:4692157, items:[['Ploteo heladeras Coto (Bardo)','1.973.325'], ['Bolsas','795.630'], ['Merch: chombas y remeras Kyros/SK','696.000'], ['Ploteo heladeras','580.200'], ['Impresión de trípticos (Diego Rey)','446.845'], ['Servilletas brandeadas Kyros','200.157']]}, 'Vía pública':{total:15557851, items:[['Babaganush · implementación vía pública','15.557.851']]} },
 };
 
 const catChart = new Chart(document.getElementById('catChart').getContext('2d'), {
